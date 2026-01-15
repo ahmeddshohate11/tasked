@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "695720855434",
+    "project_id": "tasked-flutter-app",
+    "storage_bucket": "tasked-flutter-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:695720855434:android:f38e7df136ecd51ca66a73",
+        "android_client_info": {
+          "package_name": "com.example.tasked"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-OQicVAm4pKb1bxVoPqKDa9Aie-vtZU0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
