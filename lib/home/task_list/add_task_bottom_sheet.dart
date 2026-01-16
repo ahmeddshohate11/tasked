@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tasked/firebase_utils.dart';
+import 'package:tasked/model/task.dart';
 
 class AddTaskBottomSheet extends StatefulWidget {
   const AddTaskBottomSheet({super.key});
@@ -86,7 +88,19 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
       ),
     );
   }
-
+void addTask() {
+    if(formKey.currentState?.validate() == false){
+      ///add task to fire base
+      Task task=Task(
+        title: title,
+        description: description,
+        dateTime: selectedDate,
+      );
+      FirebaseUtils.addTaskToFireStore(task).then((value) {
+        Navigator.pop(context);
+      } );
+    }
+  }
   void showCalander() async {
     var chooseDate = await showDatePicker(
       context: context,

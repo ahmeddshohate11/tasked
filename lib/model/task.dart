@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Task {
   /// data class
+  static const String collectionName='tasks';
   String id;
   String title;
   String description;
@@ -47,3 +48,4 @@ isDone: data['isDone'] as bool,
 
 
 }
+  
