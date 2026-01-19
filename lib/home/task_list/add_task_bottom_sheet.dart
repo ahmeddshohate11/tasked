@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tasked/firebase_utils.dart';
 import 'package:tasked/model/task.dart';
+import 'package:tasked/provider/list_provider.dart';
 
 class AddTaskBottomSheet extends StatefulWidget {
   const AddTaskBottomSheet({super.key});
@@ -10,12 +12,15 @@ class AddTaskBottomSheet extends StatefulWidget {
 }
 
 class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
+  
   var selectedDate = DateTime.now();
   var formKey=GlobalKey<FormState>();
   String title='';
   String description='';
+  late ListProvider listProvider;
   @override
  Widget build(BuildContext context) {
+ listProvider =Provider.of<ListProvider>(context);
   return Padding(
     padding: EdgeInsets.only(
       bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -106,16 +111,21 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
 void addTask() {
   if (!formKey.currentState!.validate()) return;
 
-  Task task = Task(
+  Task task = Task( 
     title: title,
     description: description,
     dateTime: selectedDate,
   );
 
-  FirebaseUtils.addTaskToFireStore(task).then((value) {
-    Navigator.pop(context);
-  });
-}
+  FirebaseUtils.addTaskToFireStore(task).timeout(Duration(seconds: 5)).timeout(Duration(seconds: 5), onTimeout: () {
+   listProvider.getAllTasksFromFireStore(); 
+  Navigator.of(context).pop();  
+ 
+  },);
+
+    // Update the local task list
+    
+  }
 
   void showCalander() async {
     var chooseDate = await showDatePicker(

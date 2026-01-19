@@ -1,9 +1,11 @@
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tasked/firebase_options.dart';
 import 'package:tasked/home/home_screen.dart';
 import 'package:tasked/my_theme_data.dart';
+import 'package:tasked/provider/list_provider.dart';
 
 void main() async{
    WidgetsFlutterBinding.ensureInitialized();// use widget flutter // لم تستخدم ال main ويكون فيه async 
@@ -11,7 +13,10 @@ void main() async{
      await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(create: (BuildContext context) {  
+    return ListProvider();
+  },
+  child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {

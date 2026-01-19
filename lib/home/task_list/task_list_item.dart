@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:tasked/app_colors.dart';
+import 'package:tasked/model/task.dart';
 
 class TaskListItem extends StatelessWidget {
-  const TaskListItem({super.key});
+   final Task task;
+  const TaskListItem(this.task, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -58,14 +60,14 @@ class TaskListItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Task Title',
+                    task.title,
                     style: Theme.of(
                       context,
                     ).textTheme.bodyMedium?.copyWith(color: AppColors.primaryColor,fontSize: 22),
                   ),
                   SizedBox(height: 5),
                   Text(
-                    'Task Description',
+                    task.description,
                     style: Theme.of(
                       context,
                     ).textTheme.bodyMedium,
