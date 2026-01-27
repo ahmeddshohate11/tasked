@@ -26,7 +26,9 @@ class _HomeScreenState extends State<HomeScreen> {
           style: Theme.of(context).textTheme.titleLarge,
         ),
       ),
-               body:selectedIndex==0? TaskListTab():SettingsTab(),
+               body:selectedIndex==0? TaskListTab(
+        task: null!,
+               ):SettingsTab(),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: selectedIndex,
         onTap: (index){

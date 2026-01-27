@@ -2,6 +2,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tasked/auth/login/login_screen.dart';
+import 'package:tasked/auth/register/register_screen.dart';
 import 'package:tasked/firebase_options.dart';
 import 'package:tasked/home/home_screen.dart';
 import 'package:tasked/my_theme_data.dart';
@@ -30,6 +32,8 @@ class MyApp extends StatelessWidget {
       initialRoute: HomeScreen.routeName,
       routes: {
         HomeScreen.routeName: (context) =>  HomeScreen(),
+        RegisterScreen.routeName: (context) =>  RegisterScreen(),
+        LoginScreen.routeName: (context) =>  LoginScreen(),
       },
      
       theme: MyThemeData.lightTheme,

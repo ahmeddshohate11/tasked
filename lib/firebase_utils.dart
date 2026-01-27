@@ -26,6 +26,11 @@ class FirebaseUtils {
     // هبعت الداتا للفاير بيزا  هناك
     return taskDocRef.set(task);
   } 
+  static Future<void> deleteTaskFromFireStore(Task task) {
+    var tasksCollectionRef = getTasksCollection(); // collection reference<Task>
+    DocumentReference<Task> taskDocRef = tasksCollectionRef.doc(task.id);
+    return taskDocRef.delete();
+  }
 }
 // fire base بتفهم حاجهه اسمه json|
 // {} => json object 
