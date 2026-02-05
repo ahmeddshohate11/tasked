@@ -8,13 +8,13 @@ class CustomTextFormField extends StatelessWidget {
  final String label;
  final ValidatorFunction validator;
  final TextEditingController controller;
-final TextInputType keyboardType;
+final TextInputType keyboardType;  
 final bool obscureText;
 // const String email = "tony@starkindustries.com";
 
 // final bool emailValid = 
 //     RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-//       .hasMatch(email);
+//       .hasMatch(email); 
 
   @override
   Widget build(BuildContext context) {
