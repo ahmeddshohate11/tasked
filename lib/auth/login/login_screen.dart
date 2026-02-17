@@ -1,12 +1,35 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tasked/auth/custom_text_form_field.dart';
+import 'package:tasked/auth/login/login_navigator.dart';
+import 'package:tasked/auth/login/login_view_model.dart';
 import 'package:tasked/auth/register/register_screen.dart';
+import 'package:tasked/chat/chat_screen.dart';
+import 'package:tasked/utils/utils.dart' as utils;
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   static const String routeName = '/login';
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> implements LoginNavigator {
+  TextEditingController emailController = TextEditingController(
+    text: 'ahmed@example.com',
+  );
+
+  TextEditingController passwordController = TextEditingController(
+    text: String.fromCharCode(0x2022) * 6,
+  );
+
   var formKey = GlobalKey<FormState>();
+  LoginViewModel loginViewModel = LoginViewModel();
+  void initState() {
+    super.initState();
+    loginViewModel.loginNavigator = this;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,8 +80,12 @@ class LoginScreen extends StatelessWidget {
                 padding: EdgeInsetsGeometry.all(8),
                 child: ElevatedButton(
                   onPressed: () {
-                    login();
+                    loginViewModel.loginFirebaseAuth(
+                      emailController.text,
+                      passwordController.text,
+                    );
                   },
+
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
                     padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
@@ -66,8 +93,10 @@ class LoginScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(30),
                     ),
                   ),
-                  child: Text('Login',
-                      style: Theme.of(context).textTheme.titleLarge),
+                  child: Text(
+                    'Login',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
                 ),
               ),
               TextButton(
@@ -84,12 +113,40 @@ class LoginScreen extends StatelessWidget {
         ),
       ),
     );
+    
   }
-  void login(){
-    // Implement your login logic here  
-    if(formKey.currentState?.validate()==true){
-      
-      // Perform login logic
-    }
+  
+  @override
+  void hideloading() {
+    utils.hideLoading(context);
+  }
+  
+  @override
+  void navigateToChat() {
+    Navigator.pushReplacementNamed(context, ChatScreen.routeName);
+  }
+  
+  @override
+  void showLoading() {
+    utils.showLoading(context, 'Logging in...');
+  }
+  
+  @override
+  void showMessage(String message) {
+    utils.showMessage(context, message, 'OK', (context) {
+      Navigator.pop(context);
+    });
+  }
 
-}}
+  // void login() {
+  //   // Implement your login logic here
+  //   if (formKey.currentState?.validate() == true) {
+  //     loginViewModel.loginFirebaseAuth(
+  //     emailController.text,
+  //     passwordController.text,
+  //     );
+
+  //   }
+  // }
+
+}
