@@ -1,19 +1,34 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tasked/auth/register/register_navigator.dart';
+import 'package:tasked/model/user.dart';
+import 'package:tasked/utils/data_base_utils.dart';
 import 'package:tasked/utils/firebase_error.dart';
 
 class RegisterViewModel extends ChangeNotifier {
   late RegisterNavigator registerNavigator;
 
-  Future<void> registerFirebaseAuth(String email, String password) async {
+  Future<void> registerFirebaseAuth(
+    String email,
+    String password,
+    String userName,
+    String firstName,
+    String lastName,
+
+  ) async {
     try {
       registerNavigator.showLoading();
 
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      final result = await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
+      /// save user data in firestore
+    var user = MyUser(
+      id: result.user?.uid ?? '', firstName: firstName,
+       lastName: lastName, userName: userName, email: email);
+
+     var dataUSer = await DataBaseUtils.addMyUseregisterUSer(user);
 
       registerNavigator.hideloading();
       registerNavigator.showMessage('User registered successfully');

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tasked/auth/custom_text_form_field.dart';
@@ -123,7 +125,9 @@ class _LoginScreenState extends State<LoginScreen> implements LoginNavigator {
   
   @override
   void navigateToChat() {
-    Navigator.pushReplacementNamed(context, ChatScreen.routeName);
+    Timer(Duration(seconds: 2), () {
+      Navigator.pushReplacementNamed(context, ChatScreen.routeName);
+    }); 
   }
   
   @override

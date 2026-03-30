@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tasked/auth/custom_text_form_field.dart';
@@ -20,7 +22,14 @@ class _RegisterScreenState extends State<RegisterScreen>
   TextEditingController usernameController = TextEditingController(
     text: 'ahmed',
   );
-
+ 
+  TextEditingController firstNameController = TextEditingController(
+    text: 'Ahmed',
+  );
+  TextEditingController lastNameController = TextEditingController(
+    text: 'Ali',
+  );
+  
   // controllre the same function onChanged & onSubmitted true
   TextEditingController emailController = TextEditingController(
     text: 'ahmed@example.com',
@@ -125,6 +134,9 @@ class _RegisterScreenState extends State<RegisterScreen>
                       registerViewModel.registerFirebaseAuth(
                         emailController.text.trim(),
                         passwordController.text.trim(),
+                        usernameController.text.trim(),
+                        firstNameController.text.trim(),
+                        lastNameController.text.trim(),
                       );
                     }
                   },
@@ -191,6 +203,8 @@ class _RegisterScreenState extends State<RegisterScreen>
 
   @override
   void navigateToChat() {
-    Navigator.pushReplacementNamed(context, ChatScreen.routeName);
+  Timer(Duration(seconds: 5), () {
+    Navigator.pushReplacementNamed(context, ChatScreen.routeName);  
+  });
   }
 }
